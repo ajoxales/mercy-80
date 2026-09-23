@@ -24,6 +24,7 @@ function asString(value: unknown, fallback: string): string {
 
 function loadLetter(saved: unknown, fallback: LetterContent): LetterContent {
   if (!isRecord(saved)) return fallback;
+  const savedSignature = asString(saved.signature, fallback.signature);
   return {
     ...fallback,
     sender: asString(saved.sender, fallback.sender),
@@ -31,7 +32,11 @@ function loadLetter(saved: unknown, fallback: LetterContent): LetterContent {
     photoCaption: asString(saved.photoCaption, fallback.photoCaption),
     salutation: asString(saved.salutation, fallback.salutation),
     message: asString(saved.message, fallback.message),
-    signature: asString(saved.signature, fallback.signature),
+    signature:
+      savedSignature === "Your loving son,\nDondon" ||
+      savedSignature === "Your loving son, Dondon"
+        ? fallback.signature
+        : savedSignature,
   };
 }
 
@@ -1014,7 +1019,7 @@ function App() {
             <br />
             <em>{content.closingName}</em>
           </h1>
-          <p>Mahal na mahal ka namin, Ma.</p>
+          <br />
           <button className="primary-button" type="button" onClick={replay}>
             <span aria-hidden="true">↻</span>
             Replay Celebration

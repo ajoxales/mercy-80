@@ -710,7 +710,9 @@ textarea:focus-visible {
   cursor: pointer;
   font-size: 10px;
   line-height: 1;
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .voice-bar__toggle:hover {
@@ -1379,11 +1381,11 @@ textarea:focus-visible {
   .finale-scene {
     justify-content: flex-start;
     min-height: calc(100vh - 95px);
-    padding: 15px 10px 70px;
+    padding: 4px 8px 55px;
   }
 
   .scene-heading {
-    margin: 3px auto 15px;
+    margin: 0 auto 7px;
   }
 
   .scene-heading h2 {
@@ -1393,12 +1395,12 @@ textarea:focus-visible {
   .envelope-stage,
   .finale-scene .envelope-stage {
     width: 96vw;
-    height: 660px;
+    height: 610px;
     min-height: 0;
   }
 
   .envelope {
-    bottom: 180px;
+    bottom: 300px;
     width: 94vw;
   }
 
@@ -1413,16 +1415,18 @@ textarea:focus-visible {
 
   .letter-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: 138px 1fr;
-    gap: 10px;
+    grid-template-rows: auto auto;
+    gap: 14px;
+    height: auto;
+    min-height: 100%;
   }
 
   .polaroid {
     z-index: 2;
-    width: 120px;
+    width: min(150px, 42vw);
     padding: 7px 7px 23px;
-    justify-self: start;
-    transform: rotate(-5deg) translate(9px, 25px);
+    justify-self: center;
+    transform: rotate(-4deg);
   }
 
   .polaroid figcaption {

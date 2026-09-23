@@ -49,7 +49,7 @@ export const defaultContent: KeepsakeContent = {
       salutation: "Happy Birthday, Ma! 🎂❤️",
       message:
         "Sa espesyal na araw mo, gusto ko lang sabihin kung gaano ako ka-grateful sa lahat ng ginawa at patuloy mong ginagawa para sa aming pamilya. Maraming sakripisyo ang ginawa mo para sa amin, mga bagay na hindi ko man palaging nasasabi o naipapakita, pero lubos kong pinapahalagahan.\n\nAlam kong may mga responsibilidad bilang magulang na hindi namin palaging nagagampanan, lalo na kay Fourth, pero nandiyan ka para tumulong at umalalay sa amin. Hindi mo kami kailanman pinabayaan at lagi mong inuuna ang kapakanan ng pamilya.\n\nMa, maraming salamat sa iyong walang sawang pagmamahal, pag-unawa, at sakripisyo. Hindi namin kayang tumbasan ang lahat ng ginawa mo para sa amin, pero sana alam mong hindi namin iyon nakakalimutan at habambuhay naming pahahalagahan. ❤️\n\nDalangin ko na bigyan ka pa ni Lord ng mahabang buhay, mabuting kalusugan, at maraming masasayang araw kasama ang mga taong nagmamahal sa iyo.\n\nMahal na mahal kita, Ma. Salamat sa pagiging isang mabuting ina at sa lahat ng ginagawa mo para sa aming pamilya. ❤️🙏\n\nHappy Birthday, Ma! Enjoy your special day! 🎂🎉💐",
-      signature: "Your loving son,\nDondon",
+      signature: "Love,\nDondon",
       photoUrl: image1,
       audioUrl: voice1,
     },
