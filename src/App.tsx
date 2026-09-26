@@ -47,6 +47,9 @@ function loadContent(): KeepsakeContent {
     const parsed: unknown = JSON.parse(saved);
     if (!isRecord(parsed)) return defaultContent;
     const savedLetters = Array.isArray(parsed.letters) ? parsed.letters : [];
+    const letters = defaultContent.letters.map((letter, index) =>
+      loadLetter(savedLetters[index], letter),
+    ) as KeepsakeContent["letters"];
     return {
       ...defaultContent,
       celebrant: asString(parsed.celebrant, defaultContent.celebrant),
@@ -60,10 +63,7 @@ function loadContent(): KeepsakeContent {
         parsed.finaleMessage,
         defaultContent.finaleMessage,
       ),
-      letters: [
-        loadLetter(savedLetters[0], defaultContent.letters[0]),
-        loadLetter(savedLetters[1], defaultContent.letters[1]),
-      ],
+      letters,
     };
   } catch {
     return defaultContent;
@@ -229,6 +229,7 @@ interface LetterSceneProps {
   position: number;
   exiting: boolean;
   onComplete: () => void;
+  onAdvance: () => void;
 }
 
 function LetterScene({
@@ -237,6 +238,7 @@ function LetterScene({
   position,
   exiting,
   onComplete,
+  onAdvance,
 }: LetterSceneProps) {
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -259,6 +261,20 @@ function LetterScene({
     progressRef.current = 1;
     window.setTimeout(onComplete, 1000);
   }, [onComplete]);
+
+  const skipToNext = () => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    progressRef.current = 1;
+    setPlaying(false);
+    setElapsed(0);
+    setDuration(0);
+    setNarrationAudio(null);
+    audioRef.current?.pause();
+    audioRef.current = null;
+    if (utteranceRef.current) window.speechSynthesis.cancel();
+    window.setTimeout(onAdvance, 0);
+  };
 
   useEffect(() => {
     const openTimer = window.setTimeout(() => setOpen(true), 650);
@@ -448,6 +464,14 @@ function LetterScene({
                 <i aria-hidden="true">/</i>
                 {formatTime(duration)}
               </span>
+              <button
+                className="voice-bar__next"
+                type="button"
+                onClick={skipToNext}
+                aria-label="Skip to next letter"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
@@ -544,13 +568,15 @@ interface EditorProps {
 }
 
 function ContentEditor({ content, onChange, onClose }: EditorProps) {
-  const updateLetter = (index: 0 | 1, patch: Partial<LetterContent>) => {
-    const letters: [LetterContent, LetterContent] = [...content.letters];
+  const updateLetter = (index: 0 | 1 | 2, patch: Partial<LetterContent>) => {
+    const letters: [LetterContent, LetterContent, LetterContent] = [
+      ...content.letters,
+    ];
     letters[index] = { ...letters[index], ...patch };
     onChange({ ...content, letters });
   };
 
-  const loadFile = (kind: UploadKind, index: 0 | 1 | null, file?: File) => {
+  const loadFile = (kind: UploadKind, index: 0 | 1 | 2 | null, file?: File) => {
     if (!file) return;
     const url = URL.createObjectURL(file);
     if (kind === "video") {
@@ -767,7 +793,7 @@ function ContentEditor({ content, onChange, onClose }: EditorProps) {
 function App() {
   const [content, setContent] = useState<KeepsakeContent>(loadContent);
   const [scene, setScene] = useState<Scene>("intro");
-  const [letterIndex, setLetterIndex] = useState<0 | 1>(0);
+  const [letterIndex, setLetterIndex] = useState(0);
   const [exiting, setExiting] = useState(false);
   const [editing, setEditing] = useState(false);
   const [recording, setRecording] = useState(false);
@@ -794,10 +820,11 @@ function App() {
     const serializable: KeepsakeContent = {
       ...content,
       videoUrl: "",
-      letters: [
-        { ...content.letters[0], photoUrl: "", audioUrl: "" },
-        { ...content.letters[1], photoUrl: "", audioUrl: "" },
-      ],
+      letters: content.letters.map((letter) => ({
+        ...letter,
+        photoUrl: "",
+        audioUrl: "",
+      })) as KeepsakeContent["letters"],
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
   }, [content]);
@@ -837,17 +864,21 @@ function App() {
     setScene("letter");
   };
 
-  const finishLetter = useCallback(() => {
+  const advanceLetter = useCallback(() => {
     setExiting(true);
     window.setTimeout(() => {
       setExiting(false);
-      if (letterIndex === 0) {
-        setLetterIndex(1);
+      if (letterIndex < content.letters.length - 1) {
+        setLetterIndex((current) => current + 1);
       } else {
         setScene("finale");
       }
     }, 1250);
-  }, [letterIndex]);
+  }, [content.letters.length, letterIndex]);
+
+  const finishLetter = useCallback(() => {
+    window.setTimeout(advanceLetter, 1000);
+  }, [advanceLetter]);
 
   const replay = () => {
     setScene("intro");
@@ -998,6 +1029,7 @@ function App() {
           position={letterIndex + 1}
           exiting={exiting}
           onComplete={finishLetter}
+          onAdvance={advanceLetter}
         />
       )}
 

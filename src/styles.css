@@ -685,7 +685,9 @@ textarea:focus-visible {
   bottom: 0;
   left: 50%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 15px;
   padding: 9px 20px 9px 9px;
   transform: translate(-50%, 50%);
@@ -722,6 +724,35 @@ textarea:focus-visible {
 
 .voice-bar__toggle span {
   transform: translateX(1px);
+}
+
+.voice-bar__next {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 72px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(199, 161, 90, 0.3);
+  border-radius: 999px;
+  color: #7a5d61;
+  background: rgba(255, 253, 248, 0.82);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.voice-bar__next:hover {
+  transform: translateY(-1px);
+  border-color: rgba(183, 110, 121, 0.45);
+  background: rgba(255, 253, 248, 1);
 }
 
 .voice-waveform {
@@ -1450,6 +1481,12 @@ textarea:focus-visible {
   .voice-bar {
     gap: 11px;
     padding: 7px 15px 7px 7px;
+  }
+
+  .voice-bar__next {
+    min-width: 64px;
+    height: 32px;
+    padding: 0 12px;
   }
 
   .voice-waveform {

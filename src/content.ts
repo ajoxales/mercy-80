@@ -1,5 +1,7 @@
 import backgroundMusic from "./assets/Romantic Happy Birthday (Arranged by Miranda Wong) Piano Cover.mp3";
 import endingVideo from "./assets/ending video.mp4";
+import itoImage from "./assets/ito.jpg";
+import itoAudio from "./assets/itoito.mp3";
 import image1 from "./assets/image1.jpg";
 import image2 from "./assets/image2.jpg";
 import voice1 from "./assets/voice1.mp3";
@@ -27,7 +29,7 @@ export interface KeepsakeContent {
   eyebrow: string;
   title: string;
   subtitle: string;
-  letters: [LetterContent, LetterContent];
+  letters: [LetterContent, LetterContent, LetterContent];
   finaleTitle: string;
   finaleMessage: string;
   videoUrl: string;
@@ -39,7 +41,7 @@ export const defaultContent: KeepsakeContent = {
   closingName: "Lola Mercy",
   eyebrow: "A celebration of a beautiful life",
   title: "Mercedes @ 80",
-  subtitle: "Letters, voices, and love from Dondon and Kate",
+  subtitle: "Letters, voices, and love from your family",
   letters: [
     {
       id: "letter-one",
@@ -57,13 +59,25 @@ export const defaultContent: KeepsakeContent = {
       id: "letter-two",
       sender: "Kate",
       relationship: "Your daughter-in-law",
-      photoCaption: "Kate & Ma",
+      photoCaption: "Kate",
       salutation: "Maligayang Birthday, Ma! 🎂❤️",
       message:
         "Ngayong 80th birthday mo, gusto ko pong ipaabot ang aking taos-pusong pasasalamat sa inyo, hindi lamang bilang Mama ni Dondon, kundi bilang isang biyenang naging malaking bahagi na rin ng buhay ko at ng pamilya namin.\n\nMaraming salamat po sa pagtanggap ninyo sa akin bilang bahagi ng pamilya at sa lahat ng pag-unawa at pagmamahal na ipinakita ninyo sa akin sa mga panahong hindi naging madali ang buhay namin.\n\nLalo na noong mga panahong nagda-dialysis ako. Kahit umuuwi kami ng Pilipinas para sana makasama at maalagaan si Fourth, may mga pagkakataong hindi ko pa rin kayang gampanan nang buo ang mga responsibilidad ko bilang magulang dahil sa aking kalagayan. Hindi naging madali para sa akin iyon bilang isang ina, pero malaking bagay po na hindi ninyo ako hinusgahan o pinaramdam na nagkukulang ako.\n\nSa halip, naintindihan ninyo ang sitwasyon ko at kayo ang tumulong na punan ang mga bagay na hindi ko kayang gawin noon. Kayo ang naging katuwang namin sa pagpapalaki kay Fourth at nagbigay sa kanya ng pagmamahal, pag-aalaga at gabay habang hindi ko pa kayang gawin ang lahat para sa kanya. ❤️\n\nHindi ko po makakalimutan ang mga sandaling nasa loob ako ng kwarto, nagda-dialysis at maluha-luha habang pinagmamasdan ko kayong inaasikaso si Fourth sa paghahanda niya at pagpasok sa eskwela. Sa mga panahong iyon, ramdam ko kung gaano kalaki ang tulong at pagmamahal na ibinibigay ninyo sa kanya at sa amin. Kahit hindi ko man po nasasabi palagi, labis-labis ang pasasalamat ko sa inyo.\n\nHindi ko po makakalimutan ang lahat ng oras, pagod at pagmamahal na ibinigay ninyo kay Fourth. Malaki po ang naging bahagi ninyo sa kanyang paglaki at sa taong siya ngayon.\n\nMaraming salamat din po dahil naging mabuti kayong ina sa asawa ko. Sa pagpapalaki ninyo sa kanya, nabuo ang taong nakasama ko sa buhay at naging mabuting asawa at ama kay Fourth. Kaya sa maraming bagay na ipinagpapasalamat ko sa buhay, isa po kayo sa mga iyon. ❤️\n\nHindi po namin makakalimutan ang lahat ng ginawa ninyo para sa amin, at habang buhay naming dadalhin ang pasasalamat at pagmamahal namin sa inyo. ❤️\n\nDasal ko na patuloy pa kayong bigyan ni Lord ng malusog, mahaba at masayang buhay. Sana marami pa tayong birthdays, celebrations at masasayang alaala na pagsasaluhan bilang isang pamilya. 🙏❤️\n\nHappy Birthday, Mama! 🎂💐\n\nMaraming salamat po sa pagiging isang mabuting ina, lola, at biyenan sa amin.\n\nMahal na mahal po namin kayo. ❤️",
       signature: "Love,\nKate",
       photoUrl: image2,
       audioUrl: voice2,
+    },
+    {
+      id: "letter-three",
+      sender: "Charito",
+      relationship: "Your loving sister",
+      photoCaption: "Charito",
+      salutation: "Hi Ate,",
+      message:
+        "Happy Birthday! Sana maraming kaarawan pa ang dumating sa buhay mo! ✨ Salamat sa iyo, salamat sa mga tulong na binibigay mo sa amin lalo na sa ating mga kapatid. 🙏❤️\n\nHappy Birthday, Ate! Mahal na mahal ka namin. 💖 Kaya lang, wala ako diyan sa birthday mo. Next time na lang, sa susunod mong birthday na lang!\n\nHappy Birthday ulit! Maraming salamat! 🥳💐",
+      signature: "Love,\nCharito",
+      photoUrl: itoImage,
+      audioUrl: itoAudio,
     },
   ],
   finaleTitle: "With all our love, always",
